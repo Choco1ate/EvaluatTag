@@ -37,8 +37,11 @@
         UIImage *image_n = [UIImage imageNamed:@"btn_tag_n"];
         UIImage *image_s = [UIImage imageNamed:@"btn_tag_s"];
 
-        [_btnTag setBackgroundImage:[image_n resizableImageWithCapInsets:UIEdgeInsetsMake(10, 20, 10, 20)] forState:UIControlStateNormal];
-        [_btnTag setBackgroundImage:[image_s resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, image_n.size.width/2) resizingMode:UIImageResizingModeStretch] forState:UIControlStateSelected];
+//        [_btnTag setBackgroundImage:[image_n resizableImageWithCapInsets:UIEdgeInsetsMake(10, 20, 10, 20)] forState:UIControlStateNormal];
+//        [_btnTag setBackgroundImage:[image_s resizableImageWithCapInsets:UIEdgeInsetsMake(5, 5, 5, image_n.size.width/2) resizingMode:UIImageResizingModeStretch] forState:UIControlStateSelected];
+        [_btnTag setBackgroundImage:image_n forState:UIControlStateNormal];
+        [_btnTag setBackgroundImage:image_s forState:UIControlStateSelected];
+        
         [_btnTag setTitleColor:RCColorWithValue(0xCCCCCC) forState:UIControlStateNormal];
         [_btnTag setTitleColor:RCColorWithValue(0x338CFF) forState:UIControlStateSelected];
         [_btnTag setTitle:@"" forState:UIControlStateNormal];

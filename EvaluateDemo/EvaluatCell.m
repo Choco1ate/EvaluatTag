@@ -148,7 +148,7 @@ static NSString * const tagCell = @"tagCell";
     if (dict) {
         // ID
         _eID = dict[@"eID"];
-        
+    
         // Star
         _listStar = dict[@"stars"];
         

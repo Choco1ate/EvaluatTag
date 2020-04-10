@@ -12,6 +12,8 @@
 #import "EvaluatHeaderView.h"
 #import "Macros.h"
 #import "EvaluatData.h"
+#import "UIImage+Util.h"
+#import "UITextView+Placeholder.h"
 
 @interface ClassEvaluatView()<UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) NSArray *listArr;
@@ -20,6 +22,7 @@
 @property (strong, nonatomic) UIButton *btnSubmit;
 @property (strong, nonatomic) UITextView *textView;
 @property (strong, nonatomic) NSMutableArray *dataArr;
+@property (strong, nonatomic) UIView *footerView;
 @end
 
 @implementation ClassEvaluatView
@@ -49,7 +52,7 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.rowHeight = UITableViewAutomaticDimension; //高度自适应
-        _tableView.tableFooterView = self.textView;
+        _tableView.tableFooterView = self.footerView;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self addSubview:_tableView];
     }
@@ -69,10 +72,12 @@
 - (UIButton *)btnSubmit {
     if (!_btnSubmit) {
         _btnSubmit = [[UIButton alloc]init];
-        [_btnSubmit setBackgroundColor:RCColorWithValue(0x338CFF)];
-        //RCColorWithValue(0xCCCCCC)
+        [_btnSubmit setBackgroundImage:[UIImage imageWithColor:RCColorWithValue(0x338CFF) size:CGSizeMake(kScreenWidth - 32, 47)] forState:UIControlStateNormal];
+        [_btnSubmit setBackgroundImage:[UIImage imageWithColor:RCColorWithValue(0xCCCCCC) size:CGSizeMake(kScreenWidth - 32, 47)] forState:UIControlStateDisabled];
+        _btnSubmit.layer.masksToBounds = YES;
         [_btnSubmit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_btnSubmit setTitle:@"提交" forState:UIControlStateNormal];
+        [_btnSubmit addTarget:self action:@selector(submitClick) forControlEvents:UIControlEventTouchUpInside];
         [_btnSubmit.titleLabel setFont:kFont(16)];
         _btnSubmit.layer.cornerRadius = 6;
     }
@@ -81,12 +86,23 @@
 
 - (UITextView *)textView {
     if (!_textView) {
-        _textView = [[UITextView alloc]initWithFrame:CGRectMake(16, 0, SCREEN_WIDTH - 2*16, 133)];
+        _textView = [[UITextView alloc]initWithFrame:CGRectMake(16, 24, SCREEN_WIDTH - 2*16, 133)];
         _textView.backgroundColor = RCColorWithValue(0xF8F8F8);
         _textView.layer.cornerRadius = 6;
-        _textView.textColor = RCColorWithValue(0x9A9A9A);
+        _textView.placeholder = @"更多建议请留言…";
+        _textView.placeholderColor = RCColorWithValue(0x9A9A9A);
+        _textView.textColor = [UIColor blackColor];
     }
     return _textView;
+}
+
+
+- (UIView *)footerView {
+    if (!_footerView) {
+        _footerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 133 + 24)];
+        [_footerView addSubview:self.textView];
+    }
+    return _footerView;
 }
 
 #pragma mark - Public Method
@@ -100,6 +116,7 @@
 #pragma mark - Private Method
 - (void)initViews {
     // Submit
+    [self.btnSubmit setEnabled:NO];
     [self addSubview:self.btnSubmit];
     [self.btnSubmit mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(16);
@@ -123,6 +140,11 @@
         make.left.right.mas_equalTo(0);
         make.bottom.equalTo(self.btnSubmit.mas_top).offset(-16);
     }];
+}
+
+/// Submit
+- (void)submitClick {
+    NSLog(@"%@",_dataArr);
 }
 
 /**
@@ -155,21 +177,25 @@
 - (BOOL)isBtnAvailable {
 
     if (ISNULLARRAY(_dataArr)) {
+        
+        [self.btnSubmit setEnabled:NO];
         return NO;
     }
     
     NSMutableArray *arr = [[NSMutableArray alloc]init];
     
     for (EvaluatData *data in _dataArr) {
-        if (data.starCount != 0 && !ISNULLSTR(data.tags)) {
+        if (data.starCount != 0) {
             [arr addObject:data];
         }
     }
     
     if (arr.count == _listArr.count) {
+        [self.btnSubmit setEnabled:YES];
         return YES;
     }
     
+    [self.btnSubmit setEnabled:NO];
     return NO;
 }
 
@@ -234,6 +260,8 @@
                 }
             }
         }
+        
+        [weakSelf isBtnAvailable];
     };
     
     cell.blockTag = ^(NSString * _Nonnull tag) {
@@ -265,6 +293,8 @@
                 }
             }
         }
+        
+        [weakSelf isBtnAvailable];
     };
     
     return cell;

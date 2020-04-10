@@ -31,6 +31,9 @@
 		8C95E87D24345F9500D58362 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C95E87C24345F9500D58362 /* Assets.xcassets */; };
 		8C95E88024345F9500D58362 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C95E87E24345F9500D58362 /* LaunchScreen.storyboard */; };
 		8C95E88324345F9500D58362 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C95E88224345F9500D58362 /* main.m */; };
+		8C97AF3F244007DD0000CEB5 /* UIImage+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C97AF3D244007DD0000CEB5 /* UIImage+Util.m */; };
+		8C9A7B5D2440404000604389 /* UIFont+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A7B5B2440404000604389 /* UIFont+Utils.m */; };
+		8C9A7BC22440558C00604389 /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C9A7BC02440558B00604389 /* UITextView+Placeholder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +74,14 @@
 		8C95E87F24345F9500D58362 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C95E88124345F9500D58362 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C95E88224345F9500D58362 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8C97AF3D244007DD0000CEB5 /* UIImage+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Util.m"; sourceTree = "<group>"; };
+		8C97AF3E244007DD0000CEB5 /* UIImage+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Util.h"; sourceTree = "<group>"; };
+		8C9A7B5924403C5C00604389 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		8C9A7B5A24403C5D00604389 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		8C9A7B5B2440404000604389 /* UIFont+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Utils.m"; sourceTree = "<group>"; };
+		8C9A7B5C2440404000604389 /* UIFont+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Utils.h"; sourceTree = "<group>"; };
+		8C9A7BC02440558B00604389 /* UITextView+Placeholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Placeholder.m"; sourceTree = "<group>"; };
+		8C9A7BC12440558B00604389 /* UITextView+Placeholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Placeholder.h"; sourceTree = "<group>"; };
 		D4D8C13BE12AAECE6D554297 /* Pods-EvaluateDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EvaluateDemo.debug.xcconfig"; path = "Target Support Files/Pods-EvaluateDemo/Pods-EvaluateDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,6 +156,10 @@
 				8C95E87124345F9200D58362 /* AppDelegate.m */,
 				8C95E87324345F9200D58362 /* SceneDelegate.h */,
 				8C95E87424345F9200D58362 /* SceneDelegate.m */,
+				8C9A7BC12440558B00604389 /* UITextView+Placeholder.h */,
+				8C9A7BC02440558B00604389 /* UITextView+Placeholder.m */,
+				8C97AF3E244007DD0000CEB5 /* UIImage+Util.h */,
+				8C97AF3D244007DD0000CEB5 /* UIImage+Util.m */,
 				8C95E87624345F9200D58362 /* ViewController.h */,
 				8C95E87724345F9200D58362 /* ViewController.m */,
 				8C1BABA5243B11F300A8A80C /* ClassEvaluatView.h */,
@@ -159,6 +174,8 @@
 				8C8E4E6E24346CAB002746D1 /* TagViewCell.m */,
 				8C4DE9CF243DC2F600AD0FE0 /* EvaluatData.h */,
 				8C4DE9D0243DC2F600AD0FE0 /* EvaluatData.m */,
+				8C9A7B5C2440404000604389 /* UIFont+Utils.h */,
+				8C9A7B5B2440404000604389 /* UIFont+Utils.m */,
 				8C1BABA3243B0DB300A8A80C /* Macros.h */,
 				8C8E4E6424346997002746D1 /* Images */,
 				8C95E87924345F9200D58362 /* Main.storyboard */,
@@ -213,6 +230,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 8C95E86424345F9100D58362;
 			productRefGroup = 8C95E86E24345F9200D58362 /* Products */;
@@ -295,6 +313,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C1BAB9F243ACE9400A8A80C /* EvaluatCell.m in Sources */,
+				8C9A7BC22440558C00604389 /* UITextView+Placeholder.m in Sources */,
+				8C97AF3F244007DD0000CEB5 /* UIImage+Util.m in Sources */,
 				8C95E87824345F9200D58362 /* ViewController.m in Sources */,
 				8C95E87224345F9200D58362 /* AppDelegate.m in Sources */,
 				8C1BABA7243B11F300A8A80C /* ClassEvaluatView.m in Sources */,
@@ -303,6 +323,7 @@
 				8C4DE9D1243DC2F600AD0FE0 /* EvaluatData.m in Sources */,
 				8C95E88324345F9500D58362 /* main.m in Sources */,
 				8C95E87524345F9200D58362 /* SceneDelegate.m in Sources */,
+				8C9A7B5D2440404000604389 /* UIFont+Utils.m in Sources */,
 				8C8E4E6F24346CAB002746D1 /* TagViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,6 +335,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				8C95E87A24345F9200D58362 /* Base */,
+				8C9A7B5924403C5C00604389 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -322,6 +344,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				8C95E87F24345F9500D58362 /* Base */,
+				8C9A7B5A24403C5D00604389 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -333,6 +356,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -391,6 +415,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

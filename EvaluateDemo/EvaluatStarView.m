@@ -9,6 +9,7 @@
 #import "EvaluatStarView.h"
 #import <Masonry.h>
 #import "Macros.h"
+#import "UIFont+Utils.h"
 
 @interface EvaluatStarView()
 @property (assign, nonatomic) NSInteger count;
@@ -99,7 +100,7 @@
     }
     
     UILabel *titleLabel = [[UILabel alloc]init];
-    titleLabel.font = kFont(12);
+    titleLabel.font = [UIFont pf:FontWeightStyleMedium size:12];
     titleLabel.textColor = RCColorWithValue(0xF5A42A);
     [self addSubview:titleLabel];
     
@@ -111,8 +112,8 @@
     _titleLabel = titleLabel;
 }
 
-- (void)setTitleNamel:(NSString *)titleNamel {
-    [self.titleLabel setText:titleNamel];
+- (void)setTitleName:(NSString *)titleName {
+    [self.titleLabel setText:titleName];
 }
 
 /// Set select star count

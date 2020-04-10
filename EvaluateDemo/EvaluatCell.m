@@ -11,11 +11,12 @@
 #import <Masonry/Masonry.h>
 #import "EvaluatStarView.h"
 #import "Macros.h"
+#import "UIFont+Utils.h"
 
 static NSString * const tagCell = @"tagCell";
 
 #define TOP_COLLECTION 12
-#define HEIGHT_COLLECTION 36
+
 @interface EvaluatCell()<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (strong, nonatomic) UIView *topView;
 @property (strong, nonatomic) UICollectionView *collectionView;
@@ -25,6 +26,7 @@ static NSString * const tagCell = @"tagCell";
 @property (strong, nonatomic) NSArray *listStar;
 @property (strong, nonatomic) EvaluatData *seletData;
 @property (copy, nonatomic) NSString *eID;
+@property (assign, nonatomic) NSInteger heightCollect;
 @end
 
 @implementation EvaluatCell
@@ -38,6 +40,8 @@ static NSString * const tagCell = @"tagCell";
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
+        
+        _heightCollect = 36;
         [self initViews];
     }
     return self;
@@ -46,7 +50,8 @@ static NSString * const tagCell = @"tagCell";
 - (void)initViews {
     // Title
     [self.contentView addSubview:self.titleLabel];
-
+    
+    kWEAKSELF
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
           make.top.mas_equalTo(16);
           make.left.mas_equalTo(18);
@@ -58,8 +63,8 @@ static NSString * const tagCell = @"tagCell";
     [self.contentView addSubview:self.starView];
     
     [self.starView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.titleLabel.mas_bottom).offset(6);
-        make.left.equalTo(self.titleLabel);
+        make.top.equalTo(weakSelf.titleLabel.mas_bottom).offset(6);
+        make.left.equalTo(weakSelf.titleLabel);
         make.right.mas_equalTo(0);
         make.height.mas_equalTo(23);
     }];
@@ -68,7 +73,7 @@ static NSString * const tagCell = @"tagCell";
     [self.contentView addSubview:self.collectionView];
     
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.starView.mas_bottom);
+        make.top.equalTo(weakSelf.starView.mas_bottom);
         make.right.bottom.left.equalTo(@0);
         make.height.mas_equalTo(@1).priorityLow();//设置一个高度，以便赋值后更新
     }];
@@ -85,7 +90,11 @@ static NSString * const tagCell = @"tagCell";
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         layout.minimumLineSpacing = 12;
-        layout.itemSize = CGSizeMake((kScreenWidth - 2*16 - 3*12)/3, HEIGHT_COLLECTION);
+        
+        UIImage *image = [UIImage imageNamed:@"btn_tag_n"];
+        _heightCollect = (kScreenWidth - 2*16 - 3*12)/3*image.size.height/image.size.width;
+        
+        layout.itemSize = CGSizeMake((kScreenWidth - 2*16 - 3*12)/3, _heightCollect);
         
         _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
         _collectionView.dataSource = self;
@@ -97,6 +106,7 @@ static NSString * const tagCell = @"tagCell";
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.backgroundColor = [UIColor whiteColor];
+        
         _collectionView.contentInset = UIEdgeInsetsMake(TOP_COLLECTION, 19, TOP_COLLECTION, 19);
         [_collectionView registerClass:[TagViewCell class] forCellWithReuseIdentifier:tagCell];
     }
@@ -118,7 +128,7 @@ static NSString * const tagCell = @"tagCell";
             weakSelf.seletData.tags = @"";
             weakSelf.listTags = weakSelf.listStar[index][@"tags"];
             
-            weakSelf.starView.titleNamel = weakSelf.listStar[index][@"describe"];
+            weakSelf.starView.titleName = weakSelf.listStar[index][@"describe"];
             
             // 计算Tag高度
             [weakSelf heightCollection:weakSelf.listTags.count];
@@ -134,7 +144,7 @@ static NSString * const tagCell = @"tagCell";
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc]init];
-        _titleLabel.font = kFont(14);
+        _titleLabel.font = [UIFont pf:FontWeightStyleMedium size:14];
         _titleLabel.textColor = RCColorWithValue(0x2B2B2B);
     }
     return _titleLabel;
@@ -163,6 +173,7 @@ static NSString * const tagCell = @"tagCell";
                 
                 // Tag
                 self.listTags = self.listStar[selectData.starCount - 1][@"tags"];
+                self.starView.titleName = self.listStar[selectData.starCount - 1][@"describe"];
                 
                 // 计算Tag高度
                 [self heightCollection:_listTags.count];
@@ -181,7 +192,7 @@ static NSString * const tagCell = @"tagCell";
 
     int count = (int)ceil(num / 3.0);  //结果是4
     
-    CGFloat height = HEIGHT_COLLECTION*count + (count + 1)*TOP_COLLECTION;
+    CGFloat height = _heightCollect*count + (count + 1)*TOP_COLLECTION;
     NSLog(@"height = %lf",height);
     [self.collectionView mas_updateConstraints:^(MASConstraintMaker *make) {
          make.height.mas_equalTo(@(height)).priorityLow();

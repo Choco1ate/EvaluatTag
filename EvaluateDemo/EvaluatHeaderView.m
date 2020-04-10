@@ -12,8 +12,8 @@
 
 @implementation EvaluatHeaderView
 
-- (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
+- (id)init {
+    if (self = [super init]) {
         self.backgroundColor = RCColorWithValue(0xF5F6FB);
         
         UILabel *label = [[UILabel alloc]init];

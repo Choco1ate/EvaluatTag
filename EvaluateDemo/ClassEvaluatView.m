@@ -16,6 +16,7 @@
 #import "UITextView+Placeholder.h"
 
 @interface ClassEvaluatView()<UITableViewDelegate, UITableViewDataSource>
+@property (strong, nonatomic) UIView *bgView;
 @property (strong, nonatomic) NSArray *listArr;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) EvaluatHeaderView *headerView;
@@ -41,8 +42,6 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    
-    [self setupRoundedCornersWithView:_headerView cutCorners:UIRectCornerTopLeft|UIRectCornerTopRight borderColor:[UIColor whiteColor] borderWidth:0 viewColor:RCColorWithValue(0xF5F6FB)];
 }
 
 #pragma mark - Lazy Loading
@@ -105,6 +104,13 @@
     return _footerView;
 }
 
+- (UIView *)bgView {
+    if (!_bgView) {
+        _bgView = [[UIView alloc]init];
+    }
+    return _bgView;
+}
+
 #pragma mark - Public Method
 /// 更新列表数据
 /// @param listArr 数据源
@@ -115,9 +121,16 @@
 
 #pragma mark - Private Method
 - (void)initViews {
+    // Background
+    [self addSubview:self.bgView];
+    [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(158);
+        make.left.right.bottom.mas_equalTo(0);
+    }];
+    
     // Submit
     [self.btnSubmit setEnabled:NO];
-    [self addSubview:self.btnSubmit];
+    [self.bgView addSubview:self.btnSubmit];
     [self.btnSubmit mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(16);
         make.right.mas_equalTo(-16);
@@ -126,9 +139,9 @@
     }];
     
     // HeaderView
-    [self addSubview:self.headerView];
+    [self.bgView addSubview:self.headerView];
     [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(158);
+        make.top.mas_equalTo(0);
         make.left.right.mas_equalTo(0);
         make.size.height.mas_equalTo(47);
     }];
@@ -140,6 +153,8 @@
         make.left.right.mas_equalTo(0);
         make.bottom.equalTo(self.btnSubmit.mas_top).offset(-16);
     }];
+    
+    [self setupRoundedCornersWithView:self.headerView cutCorners:UIRectCornerTopLeft|UIRectCornerTopRight borderColor:[UIColor whiteColor] borderWidth:0 viewColor:RCColorWithValue(0xF5F6FB)];
 }
 
 /// Submit
@@ -158,17 +173,18 @@
  */
 - (void)setupRoundedCornersWithView:(UIView *)view cutCorners:(UIRectCorner)rectCorner borderColor:(UIColor *)borderColor borderWidth:(CGFloat)borderWidth viewColor:(UIColor *)viewColor{
 
+    CGRect viewRect = CGRectMake(0, 0, kScreenWidth, 47);
     CAShapeLayer *mask = [CAShapeLayer layer];
-    UIBezierPath * path = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:rectCorner cornerRadii:CGSizeMake(7,7)];
+    UIBezierPath * path = [UIBezierPath bezierPathWithRoundedRect:viewRect byRoundingCorners:rectCorner cornerRadii:CGSizeMake(7,7)];
     mask.path = path.CGPath;
-    mask.frame = view.bounds;
+    mask.frame = viewRect;
 
     CAShapeLayer *borderLayer = [CAShapeLayer layer];
     borderLayer.path = path.CGPath;
     borderLayer.fillColor = [UIColor clearColor].CGColor;
     borderLayer.strokeColor = borderColor.CGColor;
     borderLayer.lineWidth = borderWidth;
-    borderLayer.frame = view.bounds;
+    borderLayer.frame = viewRect;
     view.layer.mask = mask;
     [view.layer addSublayer:borderLayer];
 }

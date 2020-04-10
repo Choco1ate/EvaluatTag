@@ -14,7 +14,7 @@ typedef void(^BlockTagClick)(NSInteger index);
 
 @interface EvaluatStarView : UIView
 @property (strong, nonatomic) BlockTagClick blockClick;
-@property (assign, nonatomic) NSString *titleNamel;
+@property (copy, nonatomic) NSString *titleName;
 
 /// Set default star count
 /// @param num start count
